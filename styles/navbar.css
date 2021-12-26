@@ -1,0 +1,27 @@
+#ul1 {
+    list-style-type: none;
+    overflow: hidden;
+    border: 2.3px solid black;
+    margin-top:0px;
+    width:90%;
+    float:right;
+    background-color:whitesmoke;
+}
+
+.li1 {
+    float: left;
+    margin: 10px;
+    line-height: 27px;
+}
+
+#navimg {
+    width: 25%;
+    margin-left: 50px;
+    /* margin-top:15px; */
+}
+input {
+    margin-left: 100px;
+    width: 450px;
+    height: 40px;
+    margin-top:0px;
+}

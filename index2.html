@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d8096832.js" crossorigin="anonymous"></script>
+    <title>YouTube</title>
+    <link rel = "icon" href ="https://cdn-icons-png.flaticon.com/512/174/174883.png" type = "image/x-icon">
+    <link rel = "stylesheet" href="./styles/navbar.css">
+    <link rel = "stylesheet" href="./styles/sidebar.css"/>
+    <link rel = "stylesheet" href="./styles/index2.css"/>
+</head>
+<body>
+    <div id="nav"></div>
+    <div id="side"></div>
+    <div id="result"></div>
+</body>
+<script type="module">
+
+    import navbar from "./components/navbar.js";
+
+    document.getElementById("nav").innerHTML=navbar();
+
+    import sidebar from "./components/sidebar.js";
+
+    document.getElementById("side").innerHTML=sidebar();
+
+
+    let video_data=JSON.parse(localStorage.getItem("video_data"));
+
+    console.log(video_data)
+
+    console.log(1);
+    document.querySelector("#result").innerHTML = "";
+    let iframe=document.createElement("iframe");
+    iframe.src=`https://www.youtube.com/embed/${video_data.videoId}`;
+    iframe.width="100%";
+    iframe.height="100%";
+    iframe.setAttribute("allowfullscreen", "true");
+    let ttl=document.createElement("h1");
+    ttl.textContent =video_data.title;
+    let desc=document.createElement("p");
+    desc.textContent =video_data.description;
+    // console.log(desc);
+    document.querySelector("#result").append(iframe,ttl,desc);
+
+
+</script>

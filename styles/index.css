@@ -1,0 +1,13 @@
+#result{
+    width:80%;
+    margin:auto;
+    display:grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-gap:2%;
+    margin-left:10%;
+    text-align: center;
+    margin:auto;
+}
+#div1{
+    height:300px;
+}

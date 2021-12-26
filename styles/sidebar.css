@@ -1,0 +1,18 @@
+#sidebar{
+    display:inline block;
+    border:2.3px solid black;
+    /* border:1px solid red; */
+    width:6.7%;
+    height:700px;
+    float:left;
+    margin-top:0px;
+    background-color:whitesmoke;
+    list-style-type: none;
+}
+.li2{
+    margin-left:0px;
+    text-align:left;
+    font-size: 25px;
+    margin-top:45px;
+    text-align: center;
+}

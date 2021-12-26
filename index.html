@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d8096832.js" crossorigin="anonymous"></script>
+    <title>YouTube</title>
+    <link rel = "icon" href ="https://cdn-icons-png.flaticon.com/512/174/174883.png" type = "image/x-icon">
+    <link rel = "stylesheet" href="./styles/navbar.css">
+    <link rel = "stylesheet" href="./styles/sidebar.css"/>
+    <link rel = "stylesheet" href="./styles/index.css"/>
+</head>
+<body>
+    <div id="nav"></div>
+    <div id="side"></div>
+    <div id="result"></div>
+</body>
+</html>
+<script type="module">
+
+    import navbar from "./components/navbar.js";
+
+    // console.log(navbar())
+
+    document.querySelector("#nav").innerHTML =navbar();
+
+    import sidebar from "./components/sidebar.js";
+
+    document.querySelector("#side").innerHTML=sidebar();
+
+    // console.log(sidebar);
+
+    document.querySelector("#sub1>i").addEventListener("click",checkVid);
+
+    
+trending();
+    async function trending(){
+        try{
+            let res = await fetch("https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=IN&maxResults=20&key=AIzaSyAcyEAeq8FV8094k4xSGDJVFSxg-ez8hok");
+            let data = await res.json();
+            let mdata = data.items;
+
+            console.log(data)
+            trendData(mdata);
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    function trendData(mdata) {
+        document.querySelector("#result").innerHTML = "";
+        mdata.forEach(({ snippet:{thumbnails :{high:{url}},title, description },id}) => {
+            // console.log(t);
+            let div1=document.createElement("div");
+            div1.setAttribute("id","div1");
+            let img=document.createElement("img");
+            img.setAttribute("src",`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+            img.style.width="100%";
+            img.style.height="60%";
+            let ttl=document.createElement("p");
+            ttl.textContent=title;
+            // console.log(ttl)
+            div1.append(img,ttl);
+            document.querySelector("#result").append(div1);
+            img.addEventListener("click",()=>{
+                nextPage(id,title,description);
+            });
+        });
+    }
+
+
+
+
+
+
+
+
+
+    async function checkVid() {
+        try {
+            let inp = document.querySelector("input").value;
+            let url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${inp}&type=video&key=AIzaSyAcyEAeq8FV8094k4xSGDJVFSxg-ez8hok`;
+
+            let res = await fetch(url);
+            let data = await res.json();
+            let mdata = data.items;
+
+            console.log(data)
+            showData(mdata);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function showData(mdata) {
+        document.querySelector("#result").innerHTML = "";
+        mdata.forEach(({ snippet:{thumbnails :{high:{url}},title, description },id:{videoId}}) => {
+            let div1=document.createElement("div");
+            div1.setAttribute("id","div1");
+            let img=document.createElement("img");
+            img.setAttribute("src",url);
+            img.style.width="100%";
+            img.style.height="70%";
+            let ttl=document.createElement("h4");
+            ttl.textContent=title;
+            div1.append(img,ttl);
+            document.querySelector("#result").append(div1);
+            div1.addEventListener("click",()=>{
+                nextPage(videoId,title,description);
+            });
+            // console.log(description)
+        });
+    }
+    function nextPage(videoId,title,description) {
+        let video_Data={
+            videoId:videoId,
+            title:title,
+            description:description
+        }
+
+        localStorage.setItem("video_data",JSON.stringify(video_Data));
+
+        window.location.href ="index2.html";
+        // console.log(1);
+        // document.querySelector("#result").innerHTML = "";
+        // let iframe=document.createElement("iframe");
+        // iframe.src=`https://www.youtube.com/embed/${videoId}`;
+        // iframe.width="100%";
+        // iframe.height="100%";
+        // iframe.setAttribute("allowfullscreen", "true");
+        // let ttl=document.createElement("h4");
+        // ttl.textContent =title
+        // document.querySelector("#result").append(iframe,ttl);
+    }
+
+    document.querySelector("#signup").addEventListener("click",signup);
+
+    function signup(){
+        window.location.href="register.html";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

@@ -45,5 +45,11 @@
     // console.log(desc);
     document.querySelector("#result").append(iframe,ttl,desc);
 
+    document.querySelector("input").addEventListener("change",redirect);
+
+    function redirect(){
+        window.location.href="index.html";
+    }
+
 
 </script>
